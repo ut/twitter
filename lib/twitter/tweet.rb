@@ -7,7 +7,7 @@ module Twitter
     include Twitter::Creatable
     include Twitter::Entities
     # @return [String]
-    attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source, :text
+    attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source, :text, :full_text
     # @return [Integer]
     attr_reader :favorite_count, :in_reply_to_status_id, :in_reply_to_user_id,
                 :retweet_count
@@ -31,7 +31,7 @@ module Twitter
 
     # @note May be > 280 characters.
     # @return [String]
-    def full_text
+    def full_text1
       if retweet?
         prefix = text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
         [prefix, retweeted_status.text].compact.join
@@ -39,7 +39,7 @@ module Twitter
         text
       end
     end
-    memoize :full_text
+    memoize :full_text1
 
     # @return [Addressable::URI] The URL to the tweet.
     def uri

@@ -23,6 +23,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def mentions_timeline(options = {})
+        options['tweet_mode'] = 'extended'
         perform_get_with_objects('/1.1/statuses/mentions_timeline.json', options, Twitter::Tweet)
       end
       alias mentions mentions_timeline
